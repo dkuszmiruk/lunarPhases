@@ -12,7 +12,7 @@
             android:layout_height="48dp"
             android:id="@+id/todayInf" app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            android:textAlignment="center" android:textSize="30sp"
+            android:textAlignment="center" android:textSize="22sp"
             app:layout_constraintBottom_toTopOf="@+id/lastMoon" app:layout_constraintHorizontal_bias="0.494"
             android:typeface="normal" android:layout_marginBottom="16dp"/>
     <TextView
@@ -21,7 +21,7 @@
             android:layout_height="48dp"
             android:id="@+id/nextFullM" app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginBottom="20dp"
-            android:textAlignment="textStart" android:textSize="30sp"
+            android:textAlignment="textStart" android:textSize="22sp"
             app:layout_constraintHorizontal_bias="0.494" app:layout_constraintBottom_toTopOf="@+id/button2"/>
     <ImageView
             android:layout_width="298dp"
@@ -38,7 +38,7 @@
             android:layout_height="48dp"
             android:id="@+id/lastMoon" app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginBottom="12dp"
-            android:textAlignment="textStart" android:textSize="30sp"
+            android:textAlignment="textStart" android:textSize="22sp"
             app:layout_constraintBottom_toTopOf="@+id/nextFullM" app:layout_constraintHorizontal_bias="0.494"/>
     <Button
             android:text="Pełnie w roku"

@@ -4,6 +4,7 @@ import android.icu.text.DateFormat
 import android.icu.text.SimpleDateFormat
 import android.os.Build
 import android.support.annotation.RequiresApi
+import java.text.Format
 import java.time.LocalDate
 import java.util.*
 import kotlin.math.abs
@@ -40,7 +41,6 @@ class MoonPhaseCalculator{
     fun Trig1(year: Int,month: Int,day: Int): Long {
         val thisJD = julday(year,month,day)
         val degToRad = 3.14159265 / 180
-//        var K0, T, T2, T3, J0, F0, M0, M1, B1, oldJ)
         val K0: Double = Math.floor((year-1900)*12.3685)
         val T: Double = (year-1899.5) / 100
         val T2 : Double = T*T; val T3: Double = T*T*T
@@ -78,7 +78,7 @@ class MoonPhaseCalculator{
         val am = 306.0253 + 385.816918 * n + 0.010730 * t2;
         var xtra: Double = 0.75933 + 1.53058868 * n + ((1.178e-4) - (1.55e-7) * t) * t2;
         xtra += (0.1734 - 3.93e-4 * t) * Math.sin(RAD * as1) - 0.4068 * Math.sin(RAD * am);
-        var i :Double =0.0
+        val i: Double
         if (xtra > 0.0) i = Math.floor(xtra) else i = Math.ceil(xtra - 1.0)
         val j1 = julday(year,month,day)
         val jd = (2415020 + 28 * n) + i
@@ -124,17 +124,44 @@ class MoonPhaseCalculator{
             return (abs(((phaseDay-15)/15.0)-1)*100).toLong()
     }
 
-    fun lastNewMoon(): String {
-        val now : Calendar = Calendar.getInstance()
-//        val formatter = SimpleDateFormat("yyyy")
-//        val formatterMonth = SimpleDateFormat("MM")
-//        val formatterDay = SimpleDateFormat("dd")
-//        formatter.format(now.time).toInt()
-//        val answer: String = formatter.format(now.time)
+    fun lastNewMoon(year: Int,month: Int,day:Int, algorithm: String): Calendar { //w javie miesiace od 0 a nie od 1
+        val date : Calendar = Calendar.getInstance()
+        date.set(year,month-1,day)
+        var x = calculate(date.get(Calendar.YEAR),date.get(Calendar.MONTH)+1,date.get(Calendar.DAY_OF_MONTH),algorithm) //pokaze jesli dzisiaj jest nów
+        while(x.toInt()!=0){
+            date.add(Calendar.DAY_OF_MONTH,-1)
+            x=calculate(date.get(Calendar.YEAR),date.get(Calendar.MONTH)+1,date.get(Calendar.DAY_OF_MONTH),algorithm)
+        }
+        return date
+    }
 
-//        val today = calculate(now.get(Calendar.YEAR),now.get(Calendar.MONTH),now.get(Calendar.DAY_OF_MONTH));
-        return now.get(Calendar.DAY_OF_MONTH).toString()
+    fun nextFullMoon(year: Int,month: Int,day:Int, algorithm: String): Calendar {
+        val date : Calendar = Calendar.getInstance()
+        date.set(year,month-1,day)
+        var x = calculate(date.get(Calendar.YEAR),date.get(Calendar.MONTH)+1,date.get(Calendar.DAY_OF_MONTH),algorithm) //pokaze jesli dzisiaj jest nów
+        while(x.toInt()!=15){
+            date.add(Calendar.DAY_OF_MONTH,1)
+            x=calculate(date.get(Calendar.YEAR),date.get(Calendar.MONTH)+1,date.get(Calendar.DAY_OF_MONTH),algorithm)
+        }
+        return date
+    }
+
+
+    fun allFullMoon(year: Int, algorithm: String): MutableList<Calendar> {
+        val date : Calendar = Calendar.getInstance()
+        var listOfDate = mutableListOf<Calendar>()
+        date.set(year,0,1)
+        while(date.get(Calendar.YEAR)!=year+1){
+            var x = calculate(date.get(Calendar.YEAR),date.get(Calendar.MONTH)+1,date.get(Calendar.DAY_OF_MONTH),algorithm)
+            if(x.toInt()==15) {
+                listOfDate.add(date.clone() as Calendar)
+            }
+            date.add(Calendar.DAY_OF_MONTH,1)
+        }
+        return listOfDate
     }
 
 
 }
+
+
