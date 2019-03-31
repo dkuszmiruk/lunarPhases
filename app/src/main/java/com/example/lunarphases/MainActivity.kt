@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         lastMoon.text="Poprzedni nów: ".plus(myCl.calToStr(last)).plus(" r.")
         nextFullM.text="Następna pełnia: ".plus(myCl.calToStr(next)).plus(" r.")
         imageView.setImageResource(R.drawable.moon)
+        imageButton.setImageResource(R.drawable.settings)
     }
 
     fun showFullM(v: View){
