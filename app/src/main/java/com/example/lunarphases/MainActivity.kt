@@ -24,15 +24,22 @@ class MainActivity : AppCompatActivity() {
     fun showTodayInformation(){
         val myCl : MoonPhaseCalculator = MoonPhaseCalculator()
         val now : Calendar = Calendar.getInstance()
-        val today = myCl.givePercentForDay(now.get(Calendar.YEAR),now.get(Calendar.MONTH)+1,now.get(Calendar.DAY_OF_MONTH),algorithmName)
+        var today = myCl.givePercentForDay(now.get(Calendar.YEAR),now.get(Calendar.MONTH)+1,now.get(Calendar.DAY_OF_MONTH),algorithmName)
         val last = myCl.lastNewMoon(now.get(Calendar.YEAR),now.get(Calendar.MONTH)+1, now.get(Calendar.DAY_OF_MONTH),algorithmName)
         val next = myCl.nextFullMoon(now.get(Calendar.YEAR),now.get(Calendar.MONTH)+1, now.get(Calendar.DAY_OF_MONTH),algorithmName)
 
         todayInf.text="Dzisiaj: ".plus(today.toString()).plus("%")  //Pierwsze info w widoku!
         lastMoon.text="Poprzedni nów: ".plus(myCl.calToStr(last)).plus(" r.")
         nextFullM.text="Następna pełnia: ".plus(myCl.calToStr(next)).plus(" r.")
-        imageView.setImageResource(R.drawable.moon)
         imageButton.setImageResource(R.drawable.settings)
+        when {
+            today < 15 -> imageView.setImageResource(R.drawable.newmoon)
+            today < 35 -> imageView.setImageResource(R.drawable.dppr)
+            today < 65 -> imageView.setImageResource(R.drawable.fiftypr)
+            today < 80 -> imageView.setImageResource(R.drawable.sevfivpr)
+            else -> imageView.setImageResource(R.drawable.fullmoon)
+        }
+
     }
 
     fun showFullM(v: View){
@@ -80,5 +87,4 @@ class MainActivity : AppCompatActivity() {
     fun onSettingsClick(v: View){
         showSettingsActivity()
     }
-
 }
