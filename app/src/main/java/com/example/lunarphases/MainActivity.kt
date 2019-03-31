@@ -1,15 +1,17 @@
 package com.example.lunarphases
 
+import android.app.Activity
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
 import kotlinx.android.synthetic.main.activity_main.*
-import com.example.lunarphases.MoonPhaseCalculator
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
-    var algorithm: String = "Trig2"
+    private var algorithmName: String = "Trig2"
+    val REQUEST_ALLFULLMOON_CODE = 12321
+    //val REQUEST_MENU_CODE = 12345
 
 //    var abc = MyClass()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,9 +24,9 @@ class MainActivity : AppCompatActivity() {
     fun showTodayInformation(){
         val myCl : MoonPhaseCalculator = MoonPhaseCalculator()
         val now : Calendar = Calendar.getInstance()
-        val today = myCl.givePercentForDay(now.get(Calendar.YEAR),now.get(Calendar.MONTH)+1,now.get(Calendar.DAY_OF_MONTH),algorithm)
-        val last = myCl.lastNewMoon(now.get(Calendar.YEAR),now.get(Calendar.MONTH)+1, now.get(Calendar.DAY_OF_MONTH),algorithm)
-        val next = myCl.nextFullMoon(now.get(Calendar.YEAR),now.get(Calendar.MONTH)+1, now.get(Calendar.DAY_OF_MONTH),algorithm)
+        val today = myCl.givePercentForDay(now.get(Calendar.YEAR),now.get(Calendar.MONTH)+1,now.get(Calendar.DAY_OF_MONTH),algorithmName)
+        val last = myCl.lastNewMoon(now.get(Calendar.YEAR),now.get(Calendar.MONTH)+1, now.get(Calendar.DAY_OF_MONTH),algorithmName)
+        val next = myCl.nextFullMoon(now.get(Calendar.YEAR),now.get(Calendar.MONTH)+1, now.get(Calendar.DAY_OF_MONTH),algorithmName)
 
         todayInf.text="Dzisiaj: ".plus(today.toString()).plus("%")  //Pierwsze info w widoku!
         lastMoon.text="Poprzedni nów: ".plus(calToStr(last)).plus(" r.")
@@ -50,4 +52,26 @@ class MainActivity : AppCompatActivity() {
         //wyswietlanie daty
         //val format : DateFormat = DateFormat.getDateInstance("yyy MM dd")
     }
+
+    fun showAllFullMoonActivity(){
+        val i = Intent(this,AllFullMoonActivity::class.java)
+        i.putExtra("Algorithm",algorithmName)
+        startActivityForResult(i,REQUEST_ALLFULLMOON_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if((requestCode==REQUEST_ALLFULLMOON_CODE) && (resultCode == Activity.RESULT_OK)){
+            if(data!=null){
+                if(data.hasExtra("rAlgorithmName")){
+//                    val name  = data.extras.getString("rAlgorithmName")
+                    val name  = data.getStringExtra("rAlgorithmName")
+                    if(name != null){
+                        algorithmName = name.toString()
+                    }
+                }
+            }
+        }
+//        if
+    }
+
 }
