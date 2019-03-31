@@ -11,7 +11,7 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
     private var algorithmName: String = "Trig2"
     val REQUEST_ALLFULLMOON_CODE = 12321
-    //val REQUEST_MENU_CODE = 12345
+    val REQUEST_MENU_CODE = 12345
 
 //    var abc = MyClass()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,12 +36,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showFullM(v: View){
-//        val myCl : MoonPhaseCalculator = MoonPhaseCalculator()
-//        val list = myCl.allFullMoon(2019,algorithm)
-//        todayInf.text = calToStr(list.get(0))
-//        lastMoon.text = list.size.toString()
-//        nextFullM.text= calToStr(list.get(2))
-
         showAllFullMoonActivity()
     }
 
@@ -51,6 +45,12 @@ class MainActivity : AppCompatActivity() {
         val i = Intent(this,AllFullMoonActivity::class.java)
         i.putExtra("AlgorithmName",algorithmName)
         startActivityForResult(i,REQUEST_ALLFULLMOON_CODE)
+    }
+
+    fun showSettingsActivity(){
+        val i = Intent(this,SettingsActivity::class.java)
+        i.putExtra("AlgorithmName",algorithmName)
+        startActivityForResult(i,REQUEST_MENU_CODE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -64,8 +64,21 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
+        }else if((requestCode==REQUEST_MENU_CODE) && (resultCode == Activity.RESULT_OK)){
+            if(data!=null){
+                if(data.hasExtra("rAlgorithmName")){
+                    val name  = data.getStringExtra("rAlgorithmName")
+                    if(name != null){
+                        algorithmName = name.toString()
+                    }
+                }
+            }
+
         }
-//        if
+    }
+
+    fun onSettingsClick(v: View){
+        showSettingsActivity()
     }
 
 }
