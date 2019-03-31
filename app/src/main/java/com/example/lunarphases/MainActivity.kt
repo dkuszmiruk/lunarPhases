@@ -29,8 +29,8 @@ class MainActivity : AppCompatActivity() {
         val next = myCl.nextFullMoon(now.get(Calendar.YEAR),now.get(Calendar.MONTH)+1, now.get(Calendar.DAY_OF_MONTH),algorithmName)
 
         todayInf.text="Dzisiaj: ".plus(today.toString()).plus("%")  //Pierwsze info w widoku!
-        lastMoon.text="Poprzedni nów: ".plus(calToStr(last)).plus(" r.")
-        nextFullM.text="Następna pełnia: ".plus(calToStr(next)).plus(" r.")
+        lastMoon.text="Poprzedni nów: ".plus(myCl.calToStr(last)).plus(" r.")
+        nextFullM.text="Następna pełnia: ".plus(myCl.calToStr(next)).plus(" r.")
         imageView.setImageResource(R.drawable.moon)
     }
 
@@ -41,21 +41,14 @@ class MainActivity : AppCompatActivity() {
 //        lastMoon.text = list.size.toString()
 //        nextFullM.text= calToStr(list.get(2))
 
-
+        showAllFullMoonActivity()
     }
 
-    fun calToStr(cal: Calendar): String {
-        if(cal.get(Calendar.MONTH)+1<10)
-            return cal.get(Calendar.DAY_OF_MONTH).toString().plus(".0").plus((cal.get(Calendar.MONTH)+1).toString()).plus(".").plus(cal.get(Calendar.YEAR))
-        else
-            return cal.get(Calendar.DAY_OF_MONTH).toString().plus(".").plus((cal.get(Calendar.MONTH)+1).toString()).plus(".").plus(cal.get(Calendar.YEAR))
-        //wyswietlanie daty
-        //val format : DateFormat = DateFormat.getDateInstance("yyy MM dd")
-    }
+
 
     fun showAllFullMoonActivity(){
         val i = Intent(this,AllFullMoonActivity::class.java)
-        i.putExtra("Algorithm",algorithmName)
+        i.putExtra("AlgorithmName",algorithmName)
         startActivityForResult(i,REQUEST_ALLFULLMOON_CODE)
     }
 

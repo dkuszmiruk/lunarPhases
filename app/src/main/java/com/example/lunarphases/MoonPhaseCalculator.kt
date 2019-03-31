@@ -7,6 +7,7 @@ import android.support.annotation.RequiresApi
 import java.text.Format
 import java.time.LocalDate
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.abs
 
 
@@ -147,7 +148,7 @@ class MoonPhaseCalculator{
     }
 
 
-    fun allFullMoon(year: Int, algorithm: String): MutableList<Calendar> {
+    fun allFullMoon(year: Int, algorithm: String): ArrayList<String> {
         val date : Calendar = Calendar.getInstance()
         var listOfDate = mutableListOf<Calendar>()
         date.set(year,0,1)
@@ -158,9 +159,24 @@ class MoonPhaseCalculator{
             }
             date.add(Calendar.DAY_OF_MONTH,1)
         }
-        return listOfDate
+
+        val listItems = arrayListOf<String>()
+        for(a in listOfDate){
+            listItems.add(calToStr(a))
+        }
+
+        return listItems
     }
 
+
+    fun calToStr(cal: Calendar): String {
+        if(cal.get(Calendar.MONTH)+1<10)
+            return cal.get(Calendar.DAY_OF_MONTH).toString().plus(".0").plus((cal.get(Calendar.MONTH)+1).toString()).plus(".").plus(cal.get(Calendar.YEAR))
+        else
+            return cal.get(Calendar.DAY_OF_MONTH).toString().plus(".").plus((cal.get(Calendar.MONTH)+1).toString()).plus(".").plus(cal.get(Calendar.YEAR))
+        //wyswietlanie daty
+        //val format : DateFormat = DateFormat.getDateInstance("yyy MM dd")
+    }
 
 }
 
