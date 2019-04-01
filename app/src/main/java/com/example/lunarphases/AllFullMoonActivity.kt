@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextWatcher
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ListView
@@ -27,6 +28,21 @@ class AllFullMoonActivity : AppCompatActivity() {
         editText.clearFocus()
         editText.setText("2019")
         showResults(myCl.allFullMoon(2019, algorithmName))
+
+        editText.setOnClickListener() {
+
+            val inputValue: String = editText.text.toString()
+            if (inputValue.toInt() > 1900 && inputValue.toInt() <= 2200) {
+                val data = myCl.allFullMoon(inputValue.toInt(), algorithmName)
+                showResults(data)
+            }
+        }
+//
+//        editText.addTextChangedListener(object : TextWatcher {
+//            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+//                if(p0.)
+//            }
+//        })
     }
 
     override fun finish() {
@@ -64,6 +80,8 @@ class AllFullMoonActivity : AppCompatActivity() {
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, data)
         listItem.adapter = adapter
     }
+
+
 
 
 }

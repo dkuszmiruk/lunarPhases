@@ -23,7 +23,10 @@ class MoonPhaseCalculator{
         new_moon.set(1900,0,1,15,14,0)
 //        new_moon.set(1970,0,7,20,35,0)
         val phase = (now.timeInMillis - new_moon.timeInMillis)/1000 %lp
-        return Math.floor((phase / (24 * 3600)).toDouble()).toLong() + 1
+        var ret =Math.floor((phase / (24 * 3600)).toDouble()).toLong() + 1
+        if (ret.toInt()==30)
+            ret = 0
+        return ret
     }
 
     fun Conway(year: Int, month: Int, day: Int): Long {

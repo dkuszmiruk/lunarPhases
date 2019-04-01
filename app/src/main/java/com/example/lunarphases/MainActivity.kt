@@ -76,6 +76,7 @@ class MainActivity : AppCompatActivity() {
                     val name  = data.getStringExtra("rAlgorithmName")
                     if(name != null){
                         algorithmName = name.toString()
+                        showTodayInformation()
                     }
                 }
             }
