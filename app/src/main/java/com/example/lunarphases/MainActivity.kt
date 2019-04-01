@@ -13,7 +13,6 @@ class MainActivity : AppCompatActivity() {
     val REQUEST_ALLFULLMOON_CODE = 12321
     val REQUEST_MENU_CODE = 12345
 
-//    var abc = MyClass()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -28,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         val last = myCl.lastNewMoon(now.get(Calendar.YEAR),now.get(Calendar.MONTH)+1, now.get(Calendar.DAY_OF_MONTH),algorithmName)
         val next = myCl.nextFullMoon(now.get(Calendar.YEAR),now.get(Calendar.MONTH)+1, now.get(Calendar.DAY_OF_MONTH),algorithmName)
 
-        todayInf.text="Dzisiaj: ".plus(today.toString()).plus("%")  //Pierwsze info w widoku!
+        todayInf.text="Dzisiaj: ".plus(today.toString()).plus("%")
         lastMoon.text="Poprzedni nów: ".plus(myCl.calToStr(last)).plus(" r.")
         nextFullM.text="Następna pełnia: ".plus(myCl.calToStr(next)).plus(" r.")
         imageButton.setImageResource(R.drawable.settings)

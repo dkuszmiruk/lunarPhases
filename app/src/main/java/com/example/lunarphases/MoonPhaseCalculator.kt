@@ -11,7 +11,6 @@ import kotlin.collections.ArrayList
 import kotlin.math.abs
 
 
-//trzeba date w innej klasie /metodzie zamienic np poprzez .toInt, albo String zalezy na co i dopiero do jej metod
 class MoonPhaseCalculator{
 
 
