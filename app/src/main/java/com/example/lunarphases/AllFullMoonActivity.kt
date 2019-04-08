@@ -35,14 +35,12 @@ class AllFullMoonActivity : AppCompatActivity() {
             if (inputValue.toInt() > 1900 && inputValue.toInt() <= 2200) {
                 val data = myCl.allFullMoon(inputValue.toInt(), algorithmName)
                 showResults(data)
+            }else{
+                val listItems = arrayListOf<String>()
+                listItems.add("Lata muszą być z zakresu 1900-2200")
+                showResults(listItems)
             }
         }
-//
-//        editText.addTextChangedListener(object : TextWatcher {
-//            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-//                if(p0.)
-//            }
-//        })
     }
 
     override fun finish() {
@@ -56,22 +54,34 @@ class AllFullMoonActivity : AppCompatActivity() {
 
     fun plusClick(v: View) {
         var value = editText.text.toString().toInt()
-        if (value < 2200) {
+        if (value < 2200 && value >=1900) {
             value += 1
             editText.setText(value.toString())
             val data = myCl.allFullMoon(value, algorithmName)
             showResults(data)
+        }else{
+            value += 1
+            editText.setText(value.toString())
+            val listItems = arrayListOf<String>()
+            listItems.add("Lata muszą być z zakresu 1900-2200")
+            showResults(listItems)
         }
     }
 
     fun minusClick(v:View){
         var value = editText.text.toString().toInt()
 
-        if(value>1900){
+        if(value>1900 && value <=2200){
             value-=1
             editText.setText(value.toString())
             val data = myCl.allFullMoon(value, algorithmName)
             showResults(data)
+        }else{
+            value-=1
+            editText.setText(value.toString())
+            val listItems = arrayListOf<String>()
+            listItems.add("Lata muszą być z zakresu 1900-2200")
+            showResults(listItems)
         }
     }
 

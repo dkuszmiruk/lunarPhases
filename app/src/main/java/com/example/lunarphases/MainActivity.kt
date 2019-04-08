@@ -63,7 +63,6 @@ class MainActivity : AppCompatActivity() {
         if((requestCode==REQUEST_ALLFULLMOON_CODE) && (resultCode == Activity.RESULT_OK)){
             if(data!=null){
                 if(data.hasExtra("rAlgorithmName")){
-//                    val name  = data.extras.getString("rAlgorithmName")
                     val name  = data.getStringExtra("rAlgorithmName")
                     if(name != null){
                         algorithmName = name.toString()

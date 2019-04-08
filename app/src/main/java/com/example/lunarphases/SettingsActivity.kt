@@ -30,7 +30,6 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     fun okClick(v: View){
-//        onBackPressed()
         this.finish()
     }
 

@@ -21,7 +21,6 @@ class MoonPhaseCalculator{
         now.set(year,month-1,day,20,35,0)
         val new_moon: Calendar = Calendar.getInstance()
         new_moon.set(1900,0,1,15,14,0)
-//        new_moon.set(1970,0,7,20,35,0)
         val phase = (now.timeInMillis - new_moon.timeInMillis)/1000 %lp
         var ret =Math.floor((phase / (24 * 3600)).toDouble()).toLong() + 1
         if (ret.toInt()==30)
@@ -176,8 +175,6 @@ class MoonPhaseCalculator{
             return cal.get(Calendar.DAY_OF_MONTH).toString().plus(".0").plus((cal.get(Calendar.MONTH)+1).toString()).plus(".").plus(cal.get(Calendar.YEAR))
         else
             return cal.get(Calendar.DAY_OF_MONTH).toString().plus(".").plus((cal.get(Calendar.MONTH)+1).toString()).plus(".").plus(cal.get(Calendar.YEAR))
-        //wyswietlanie daty
-        //val format : DateFormat = DateFormat.getDateInstance("yyy MM dd")
     }
 
 }
