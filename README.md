@@ -1,2 +1,2 @@
 # Lunar Phases
-Study project for Ubiquitous lecture.
+University project for Ubiquitous lecture.
